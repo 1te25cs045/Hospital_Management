@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXACARE | Dashboard</title>
+    <meta
+      name="description"
+      content="NEXACARE hospital management dashboard prototype with summary cards, activity feed, planning overview, and placeholder sections."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="brand">
+          <div class="logo" aria-label="NEXACARE care emblem">
+            <svg viewBox="0 0 80 80" role="img" aria-hidden="true">
+              <rect x="12" y="12" width="56" height="56" rx="16" fill="rgba(255,255,255,0.12)" />
+              <path d="M40 18 L52 32 H44 V48 H36 V32 H28 L40 18 Z" fill="#45B4EE" />
+              <circle cx="40" cy="52" r="8" fill="#EAF5FC" opacity="0.92" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <h1>NEXACARE</h1>
+            <p>Connected care. Smarter hospitals.</p>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <button class="nav-item active" data-page="dashboard" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 12.5L12 3l9 9.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+            </span>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-page="patients" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M16 18a4 4 0 0 0-8 0M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 7a4 4 0 0 0-3.1-3.9M19 7a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zm-10.9 9.1A4 4 0 0 1 5 18"/></svg>
+            </span>
+            <span>Patients</span>
+          </button>
+          <button class="nav-item" data-page="doctors" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 4.5a3 3 0 0 1 3 3V8a3 3 0 1 1-6 0V7.5a3 3 0 0 1 3-3zm10 0a3 3 0 0 1 3 3V8a3 3 0 0 1-6 0V7.5a3 3 0 0 1 3-3zm-10 9a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2.5H7zm3.2-9h1.6"/></svg>
+            </span>
+            <span>Doctors</span>
+          </button>
+          <button class="nav-item" data-page="appointments" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 3v2M17 3v2M4 9h16M5 5h14a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1z"/></svg>
+            </span>
+            <span>Appointments</span>
+          </button>
+          <button class="nav-item" data-page="billing" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zm0 0a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2M8 12h8"/></svg>
+            </span>
+            <span>Billing</span>
+          </button>
+          <button class="nav-item" data-page="settings" type="button">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9.7 3.5l1.3.6 1.2-.6 1.2 1.4 1.6 1.1.8 1.8 1.7 1.2v1.7l-1.6 1.2-.8 1.8-1.6 1.1-1.2 1.4-1.2-.6-1.3.6a2.6 2.6 0 0 1-2.8 0L6.2 20l-1.2-1.4-1.6-1.1-.8-1.8-1.7-1.2v-1.7l1.6-1.2.8-1.8 1.6-1.1L6.2 7l1.3-.6a2.6 2.6 0 0 1 2.8 0zm2.3 6.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+            </span>
+            <span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-status">
+          <div class="status-card">
+            <span class="dot"></span>
+            <div>
+              <strong>No critical alerts</strong>
+              <small>All systems stable</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Overview</p>
+            <h2>Dashboard</h2>
+          </div>
+
+          <div class="topbar-actions">
+            <label class="search-box" aria-label="Search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.8l4.4 4.4 1.4-1.4-4.4-4.4A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></svg>
+              <input type="search" aria-label="Search in dashboard" placeholder="Search patients or reports" />
+            </label>
+
+            <div class="profile-pill" aria-label="User profile">
+              <div class="avatar">AK</div>
+              <div class="profile-text">
+                <strong>Dr. Aisha Khan</strong>
+                <span>Administrator</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="page-section active" id="dashboard-page" aria-live="polite">
+          <div class="stats-grid">
+            <article class="stat-card accent-blue">
+              <div class="stat-meta">
+                <span class="label">Total Patients</span>
+                <span class="trend positive">+8.2%</span>
+              </div>
+              <h3>1,284</h3>
+              <p>Demo values only</p>
+            </article>
+
+            <article class="stat-card accent-sky">
+              <div class="stat-meta">
+                <span class="label">Total Doctors</span>
+                <span class="trend positive">+2.4%</span>
+              </div>
+              <h3>48</h3>
+              <p>Active specialists</p>
+            </article>
+
+            <article class="stat-card accent-gold">
+              <div class="stat-meta">
+                <span class="label">Today's Appointments</span>
+                <span class="trend neutral">Scheduled</span>
+              </div>
+              <h3 id="today-appointments-count">0</h3>
+              <p>For today</p>
+            </article>
+
+            <article class="stat-card accent-navy">
+              <div class="stat-meta">
+                <span class="label">Total Revenue</span>
+                <span class="trend positive">+12.1%</span>
+              </div>
+              <h3 id="dashboard-total-revenue">₹0.00</h3>
+              <p>Monthly estimate</p>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <section class="panel chart-panel" aria-labelledby="weekly-appointments-heading">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow muted">Performance</p>
+                  <h3 id="weekly-appointments-heading">Weekly appointments</h3>
+                </div>
+                <button class="filter-btn" type="button">This Week</button>
+              </div>
+
+              <div class="chart-wrap">
+                <svg viewBox="0 0 620 260" role="img" aria-label="Weekly appointments chart">
+                  <defs>
+                    <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#45B4EE" stop-opacity="0.38"/>
+                      <stop offset="100%" stop-color="#45B4EE" stop-opacity="0.04"/>
+                    </linearGradient>
+                  </defs>
+                  <g class="grid-lines">
+                    <line x1="40" y1="40" x2="580" y2="40" />
+                    <line x1="40" y1="90" x2="580" y2="90" />
+                    <line x1="40" y1="140" x2="580" y2="140" />
+                    <line x1="40" y1="190" x2="580" y2="190" />
+                    <line x1="40" y1="220" x2="580" y2="220" />
+                  </g>
+                  <path d="M40 178 C90 150, 120 166, 160 134 S250 92, 290 102 S380 140, 420 108 S500 70, 580 52 L580 220 L40 220 Z" fill="url(#chartFill)"/>
+                  <path d="M40 178 C90 150, 120 166, 160 134 S250 92, 290 102 S380 140, 420 108 S500 70, 580 52" fill="none" stroke="#45B4EE" stroke-width="4" stroke-linecap="round"/>
+                  <g class="chart-points">
+                    <circle cx="40" cy="178" r="5"/>
+                    <circle cx="160" cy="134" r="5"/>
+                    <circle cx="290" cy="102" r="5"/>
+                    <circle cx="420" cy="108" r="5"/>
+                    <circle cx="580" cy="52" r="5"/>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="chart-labels" aria-label="Chart labels">
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+              </div>
+            </section>
+
+            <section class="panel activity-panel" aria-labelledby="recent-activity-heading">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow muted">Updates</p>
+                  <h3 id="recent-activity-heading">Recent activity</h3>
+                </div>
+              </div>
+
+              <ul class="activity-list">
+                <li>
+                  <span class="activity-badge success"></span>
+                  <div>
+                    <strong>Dr. Sofia Lee completed 12 patient reviews</strong>
+                    <small>10 minutes ago</small>
+                  </div>
+                </li>
+                <li>
+                  <span class="activity-badge info"></span>
+                  <div>
+                    <strong>New lab reports were assigned to Ward B</strong>
+                    <small>31 minutes ago</small>
+                  </div>
+                </li>
+                <li>
+                  <span class="activity-badge warning"></span>
+                  <div>
+                    <strong>2 appointment slots were rescheduled</strong>
+                    <small>1 hour ago</small>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="empty-mini" aria-label="No critical alerts">
+                <strong>No critical alerts</strong>
+                <span>Inventory and staffing look stable</span>
+              </div>
+            </section>
+          </div>
+
+          <section class="panel appointments-panel" aria-labelledby="upcoming-appointments-heading">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow muted">Schedule</p>
+                <h3 id="upcoming-appointments-heading">Upcoming appointments</h3>
+              </div>
+              <button class="view-link" type="button" data-page="appointments">View all</button>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-appointments-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="page-section patients-page" id="patients-page" aria-live="polite">
+          <div class="header-panel">
+            <div>
+              <p class="eyebrow muted">Records</p>
+              <h3>Patient management</h3>
+            </div>
+            <button class="primary-btn" id="add-patient-btn" type="button">+ Add patient</button>
+          </div>
+
+          <div class="patient-toolbar">
+            <label class="patient-search" aria-label="Search patient records">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.8l4.4 4.4 1.4-1.4-4.4-4.4A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></svg>
+              <input id="patient-search" type="search" placeholder="Search by name, ID, or phone" />
+            </label>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Registration</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="patients-table-body"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state hidden" id="empty-patients-state" aria-live="polite">
+              <div class="empty-icon">👤</div>
+              <h4>No patients found</h4>
+              <p>Try a different search or add a new patient record.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="modal hidden" id="patient-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="patient-modal-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Patient record</p>
+                <h3 id="patient-modal-title">Add patient</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close patient form">×</button>
+            </div>
+
+            <form id="patient-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="fullName">Full name</label>
+                  <input id="fullName" name="fullName" type="text" />
+                  <small class="error-message" data-error-for="fullName"></small>
+                </div>
+
+                <div class="field">
+                  <label for="patientId">Patient ID</label>
+                  <input id="patientId" name="patientId" type="text" readonly />
+                </div>
+
+                <div class="field">
+                  <label for="dob">Date of birth</label>
+                  <input id="dob" name="dob" type="date" />
+                  <small class="error-message" data-error-for="dob"></small>
+                </div>
+
+                <div class="field">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender">
+                    <option value="">Select gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <small class="error-message" data-error-for="gender"></small>
+                </div>
+
+                <div class="field">
+                  <label for="phone">Phone number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" />
+                  <small class="error-message" data-error-for="phone"></small>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email (optional)</label>
+                  <input id="email" name="email" type="email" placeholder="name@example.com" />
+                  <small class="error-message" data-error-for="email"></small>
+                </div>
+
+                <div class="field full-width">
+                  <label for="address">Address (optional)</label>
+                  <textarea id="address" name="address" rows="3" placeholder="Street, city, state"></textarea>
+                  <small class="error-message" data-error-for="address"></small>
+                </div>
+
+                <div class="field">
+                  <label for="bloodGroup">Blood group (optional)</label>
+                  <select id="bloodGroup" name="bloodGroup">
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                  <small class="error-message" data-error-for="bloodGroup"></small>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="secondary-btn" data-close-modal="true">Cancel</button>
+                <button type="submit" class="primary-btn">Save patient</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal hidden" id="patient-details-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog detail-dialog" role="dialog" aria-modal="true" aria-labelledby="patient-details-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Patient details</p>
+                <h3 id="patient-details-title">Record overview</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close patient details">×</button>
+            </div>
+
+            <div id="patient-details-content" class="detail-content"></div>
+          </div>
+        </div>
+
+        <section class="page-section doctors-page" id="doctors-page" aria-live="polite">
+          <div class="header-panel">
+            <div>
+              <p class="eyebrow muted">Staff</p>
+              <h3>Doctor management</h3>
+            </div>
+            <button class="primary-btn" id="add-doctor-btn" type="button">+ Add doctor</button>
+          </div>
+
+          <div class="patient-toolbar">
+            <label class="patient-search" aria-label="Search doctor records">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.8l4.4 4.4 1.4-1.4-4.4-4.4A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></svg>
+              <input id="doctor-search" type="search" placeholder="Search by name, ID, or specialty" />
+            </label>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Doctor ID</th>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Department</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="doctors-table-body"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state hidden" id="empty-doctors-state" aria-live="polite">
+              <div class="empty-icon">🩺</div>
+              <h4>No doctors found</h4>
+              <p>Try a different search or add a new doctor record.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="modal hidden" id="doctor-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="doctor-modal-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Doctor record</p>
+                <h3 id="doctor-modal-title">Add doctor</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close doctor form">×</button>
+            </div>
+
+            <form id="doctor-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="doctorFullName">Full name</label>
+                  <input id="doctorFullName" name="doctorFullName" type="text" />
+                  <small class="error-message" data-error-for="doctorFullName"></small>
+                </div>
+
+                <div class="field">
+                  <label for="doctorId">Doctor ID</label>
+                  <input id="doctorId" name="doctorId" type="text" readonly />
+                </div>
+
+                <div class="field">
+                  <label for="specialty">Specialty</label>
+                  <input id="specialty" name="specialty" type="text" placeholder="Cardiology" />
+                  <small class="error-message" data-error-for="specialty"></small>
+                </div>
+
+                <div class="field">
+                  <label for="department">Department</label>
+                  <input id="department" name="department" type="text" placeholder="Cardiac Unit" />
+                  <small class="error-message" data-error-for="department"></small>
+                </div>
+
+                <div class="field">
+                  <label for="doctorPhone">Phone number</label>
+                  <input id="doctorPhone" name="doctorPhone" type="tel" placeholder="+1 555 555 0123" />
+                  <small class="error-message" data-error-for="doctorPhone"></small>
+                </div>
+
+                <div class="field">
+                  <label for="doctorEmail">Email</label>
+                  <input id="doctorEmail" name="doctorEmail" type="email" placeholder="doctor@hospital.com" />
+                  <small class="error-message" data-error-for="doctorEmail"></small>
+                </div>
+
+                <div class="field">
+                  <label for="qualification">Qualification</label>
+                  <input id="qualification" name="qualification" type="text" placeholder="MD, Internal Medicine" />
+                  <small class="error-message" data-error-for="qualification"></small>
+                </div>
+
+                <div class="field">
+                  <label for="yearsExperience">Years of experience</label>
+                  <input id="yearsExperience" name="yearsExperience" type="number" min="0" max="60" />
+                  <small class="error-message" data-error-for="yearsExperience"></small>
+                </div>
+
+                <div class="field">
+                  <label for="consultationFee">Consultation</label>
+                  <input id="consultationFee" name="consultationFee" type="text" placeholder="$120" />
+                  <small class="error-message" data-error-for="consultationFee"></small>
+                </div>
+
+                <div class="field">
+                  <label for="availability">Availability status</label>
+                  <select id="availability" name="availability">
+                    <option value="Available">Available</option>
+                    <option value="On Duty">On Duty</option>
+                    <option value="On Leave">On Leave</option>
+                  </select>
+                  <small class="error-message" data-error-for="availability"></small>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="secondary-btn" data-close-modal="true">Cancel</button>
+                <button type="submit" class="primary-btn">Save doctor</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal hidden" id="doctor-details-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog detail-dialog" role="dialog" aria-modal="true" aria-labelledby="doctor-details-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Doctor details</p>
+                <h3 id="doctor-details-title">Profile overview</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close doctor details">×</button>
+            </div>
+
+            <div id="doctor-details-content" class="detail-content"></div>
+          </div>
+        </div>
+
+        <section class="page-section appointments-page" id="appointments-page" aria-live="polite">
+          <div class="header-panel">
+            <div>
+              <p class="eyebrow muted">Schedule</p>
+              <h3>Appointment management</h3>
+            </div>
+            <button class="primary-btn" id="add-appointment-btn" type="button">+ Add appointment</button>
+          </div>
+
+          <div class="appointment-toolbar">
+            <label class="patient-search" aria-label="Search appointments">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.8l4.4 4.4 1.4-1.4-4.4-4.4A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></svg>
+              <input id="appointment-search" type="search" placeholder="Search by patient, doctor, or ID" />
+            </label>
+
+            <div class="appointment-filters">
+              <label>
+                <span>Filter date</span>
+                <input id="appointment-date-filter" type="date" />
+              </label>
+
+              <label>
+                <span>Status</span>
+                <select id="appointment-status-filter">
+                  <option value="">All statuses</option>
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="appointments-table-body"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state hidden" id="empty-appointments-state" aria-live="polite">
+              <div class="empty-icon">📅</div>
+              <h4>No appointments found</h4>
+              <p>Try another search or create a new appointment.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="modal hidden" id="appointment-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="appointment-modal-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Appointment record</p>
+                <h3 id="appointment-modal-title">Add appointment</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close appointment form">×</button>
+            </div>
+
+            <form id="appointment-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="appointmentId">Appointment ID</label>
+                  <input id="appointmentId" name="appointmentId" type="text" readonly />
+                </div>
+
+                <div class="field">
+                  <label for="appointmentPatient">Patient</label>
+                  <select id="appointmentPatient" name="appointmentPatient">
+                    <option value="">Select patient</option>
+                  </select>
+                  <small class="error-message" data-error-for="appointmentPatient"></small>
+                </div>
+
+                <div class="field">
+                  <label for="appointmentDoctor">Doctor</label>
+                  <select id="appointmentDoctor" name="appointmentDoctor">
+                    <option value="">Select doctor</option>
+                  </select>
+                  <small class="error-message" data-error-for="appointmentDoctor"></small>
+                </div>
+
+                <div class="field">
+                  <label for="appointmentDate">Date</label>
+                  <input id="appointmentDate" name="appointmentDate" type="date" />
+                  <small class="error-message" data-error-for="appointmentDate"></small>
+                </div>
+
+                <div class="field">
+                  <label for="appointmentTime">Time</label>
+                  <input id="appointmentTime" name="appointmentTime" type="time" />
+                  <small class="error-message" data-error-for="appointmentTime"></small>
+                </div>
+
+                <div class="field">
+                  <label for="appointmentStatus">Status</label>
+                  <select id="appointmentStatus" name="appointmentStatus">
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                  <small class="error-message" data-error-for="appointmentStatus"></small>
+                </div>
+
+                <div class="field full-width">
+                  <label for="appointmentReason">Reason for visit</label>
+                  <input id="appointmentReason" name="appointmentReason" type="text" placeholder="Routine check-up" />
+                  <small class="error-message" data-error-for="appointmentReason"></small>
+                </div>
+
+                <div class="field full-width">
+                  <label for="appointmentNotes">Notes (optional)</label>
+                  <textarea id="appointmentNotes" name="appointmentNotes" rows="3" placeholder="Additional details or instructions"></textarea>
+                  <small class="error-message" data-error-for="appointmentNotes"></small>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="secondary-btn" data-close-modal="true">Cancel</button>
+                <button type="submit" class="primary-btn">Save appointment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal hidden" id="appointment-details-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog detail-dialog" role="dialog" aria-modal="true" aria-labelledby="appointment-details-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Appointment details</p>
+                <h3 id="appointment-details-title">Visit overview</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close appointment details">×</button>
+            </div>
+
+            <div id="appointment-details-content" class="detail-content"></div>
+          </div>
+        </div>
+
+        <section class="page-section billing-page" id="billing-page" aria-live="polite">
+          <div class="header-panel">
+            <div>
+              <p class="eyebrow muted">Finance</p>
+              <h3>Billing management</h3>
+            </div>
+            <button class="primary-btn" id="add-bill-btn" type="button">+ Add bill</button>
+          </div>
+
+          <div class="stats-grid billing-stats-grid">
+            <article class="stat-card accent-blue">
+              <div class="stat-meta">
+                <span class="label">Total bills</span>
+              </div>
+              <h3 id="total-bills-count">0</h3>
+              <p>Invoices raised</p>
+            </article>
+
+            <article class="stat-card accent-sky">
+              <div class="stat-meta">
+                <span class="label">Total billed amount</span>
+              </div>
+              <h3 id="total-billed-amount">₹0.00</h3>
+              <p>All invoice totals</p>
+            </article>
+
+            <article class="stat-card accent-gold">
+              <div class="stat-meta">
+                <span class="label">Total amount paid</span>
+              </div>
+              <h3 id="total-paid-amount">₹0.00</h3>
+              <p>Cash received</p>
+            </article>
+
+            <article class="stat-card accent-navy">
+              <div class="stat-meta">
+                <span class="label">Total pending balance</span>
+              </div>
+              <h3 id="total-pending-balance">₹0.00</h3>
+              <p>Outstanding dues</p>
+            </article>
+          </div>
+
+          <div class="billing-toolbar">
+            <label class="patient-search" aria-label="Search bills">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.8l4.4 4.4 1.4-1.4-4.4-4.4A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></svg>
+              <input id="billing-search" type="search" placeholder="Search by patient, bill ID, or description" />
+            </label>
+
+            <div class="appointment-filters">
+              <label>
+                <span>Filter date</span>
+                <input id="billing-date-filter" type="date" />
+              </label>
+
+              <label>
+                <span>Status</span>
+                <select id="billing-status-filter">
+                  <option value="">All statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Partially Paid">Partially Paid</option>
+                  <option value="Paid">Paid</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Bill ID</th>
+                    <th>Patient</th>
+                    <th>Bill date</th>
+                    <th>Amount</th>
+                    <th>Paid</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="billing-table-body"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state hidden" id="empty-bills-state" aria-live="polite">
+              <div class="empty-icon">🧾</div>
+              <h4>No bills found</h4>
+              <p>There are no billing records yet. Create your first invoice.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="modal hidden" id="bill-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bill-modal-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Bill record</p>
+                <h3 id="bill-modal-title">Add bill</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close bill form">×</button>
+            </div>
+
+            <form id="bill-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="billId">Bill ID</label>
+                  <input id="billId" name="billId" type="text" readonly />
+                </div>
+
+                <div class="field">
+                  <label for="billPatient">Patient</label>
+                  <select id="billPatient" name="billPatient">
+                    <option value="">Select patient</option>
+                  </select>
+                  <small class="error-message" data-error-for="billPatient"></small>
+                </div>
+
+                <div class="field">
+                  <label for="billAppointment">Linked appointment</label>
+                  <select id="billAppointment" name="billAppointment">
+                    <option value="">No appointment linked</option>
+                  </select>
+                  <small class="error-message" data-error-for="billAppointment"></small>
+                </div>
+
+                <div class="field">
+                  <label for="billDate">Bill date</label>
+                  <input id="billDate" name="billDate" type="date" />
+                  <small class="error-message" data-error-for="billDate"></small>
+                </div>
+
+                <div class="field full-width">
+                  <label for="billDescription">Description of services</label>
+                  <input id="billDescription" name="billDescription" type="text" placeholder="Outpatient consultation and diagnostics" />
+                  <small class="error-message" data-error-for="billDescription"></small>
+                </div>
+
+                <div class="field">
+                  <label for="billDiscount">Discount (₹)</label>
+                  <input id="billDiscount" name="billDiscount" type="number" min="0" step="0.01" placeholder="0.00" />
+                  <small class="error-message" data-error-for="billDiscount"></small>
+                </div>
+
+                <div class="field">
+                  <label for="billStatus">Payment status</label>
+                  <select id="billStatus" name="billStatus">
+                    <option value="Pending">Pending</option>
+                    <option value="Partially Paid">Partially Paid</option>
+                    <option value="Paid">Paid</option>
+                  </select>
+                  <small class="error-message" data-error-for="billStatus"></small>
+                </div>
+
+                <div class="field">
+                  <label for="billAmountPaid">Amount paid (₹)</label>
+                  <input id="billAmountPaid" name="billAmountPaid" type="number" min="0" step="0.01" placeholder="0.00" />
+                  <small class="error-message" data-error-for="billAmountPaid"></small>
+                </div>
+              </div>
+
+              <div class="line-items-block">
+                <div class="line-item-header">
+                  <h4>Bill line items</h4>
+                  <button class="secondary-btn" id="add-bill-line-item" type="button">+ Add item</button>
+                </div>
+
+                <div class="table-wrap line-items-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Unit price</th>
+                        <th>Line total</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bill-line-items-body"></tbody>
+                  </table>
+                </div>
+                <small class="error-message" data-error-for="lineItems"></small>
+              </div>
+
+              <div class="billing-summary-box">
+                <div class="billing-summary-row">
+                  <span>Subtotal</span>
+                  <strong id="bill-subtotal-preview">₹0.00</strong>
+                </div>
+                <div class="billing-summary-row">
+                  <span>Discount</span>
+                  <strong id="bill-discount-preview">₹0.00</strong>
+                </div>
+                <div class="billing-summary-row final-row">
+                  <span>Final amount</span>
+                  <strong id="bill-final-preview">₹0.00</strong>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="secondary-btn" data-close-modal="true">Cancel</button>
+                <button type="submit" class="primary-btn">Save bill</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal hidden" id="bill-details-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog detail-dialog" role="dialog" aria-modal="true" aria-labelledby="bill-details-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Invoice details</p>
+                <h3 id="bill-details-title">Bill overview</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close bill details">×</button>
+            </div>
+
+            <div id="bill-details-content" class="detail-content"></div>
+          </div>
+        </div>
+
+        <div class="modal hidden" id="payment-modal" aria-hidden="true">
+          <div class="modal-backdrop" data-close-modal="true"></div>
+          <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
+            <div class="modal-header">
+              <div>
+                <p class="eyebrow muted">Receive payment</p>
+                <h3 id="payment-modal-title">Record payment</h3>
+              </div>
+              <button class="icon-close" type="button" data-close-modal="true" aria-label="Close payment form">×</button>
+            </div>
+
+            <form id="payment-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="paymentBillId">Bill ID</label>
+                  <input id="paymentBillId" name="paymentBillId" type="text" readonly />
+                </div>
+
+                <div class="field">
+                  <label for="paymentAmount">Amount received (₹)</label>
+                  <input id="paymentAmount" name="paymentAmount" type="number" min="0.01" step="0.01" placeholder="0.00" />
+                  <small class="error-message" data-error-for="paymentAmount"></small>
+                </div>
+
+                <div class="field">
+                  <label for="paymentDate">Payment date</label>
+                  <input id="paymentDate" name="paymentDate" type="date" />
+                  <small class="error-message" data-error-for="paymentDate"></small>
+                </div>
+
+                <div class="field full-width">
+                  <label for="paymentNotes">Notes (optional)</label>
+                  <textarea id="paymentNotes" name="paymentNotes" rows="3" placeholder="Payment reference or remarks"></textarea>
+                  <small class="error-message" data-error-for="paymentNotes"></small>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="secondary-btn" data-close-modal="true">Cancel</button>
+                <button type="submit" class="primary-btn">Save payment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <section class="page-section placeholder-page" id="settings-page" aria-live="polite">
+          <div class="placeholder-card">
+            <div class="placeholder-icon">⚙️</div>
+            <h3>Settings</h3>
+            <p>Configuration and hospital preferences are planned for the next stage.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
